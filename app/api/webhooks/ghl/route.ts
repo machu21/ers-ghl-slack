@@ -1,6 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
 
-// 1. Add the new contact fields to your interface
 interface GHLPayload {
   firstName?: string;
   lastName?: string;
@@ -24,7 +23,11 @@ export async function POST(request: NextRequest) {
   try {
     const data: GHLPayload = await request.json();
 
-    // 2. Destructure the new fields
+    // 🔴 ADD THIS DEBUG LOG HERE 🔴
+    console.log("=== INCOMING GHL PAYLOAD ===");
+    console.log(JSON.stringify(data, null, 2));
+    console.log("============================");
+
     const {
       firstName,
       lastName,
@@ -44,7 +47,6 @@ export async function POST(request: NextRequest) {
       budget,
     } = data;
 
-    // 3. Construct Slack markdown message with Contact Info at the top
     const slackMessage = {
       text:
         `🔥 *NEW HOT LEAD ALERT* 🔥\n\n` +
@@ -86,7 +88,8 @@ export async function POST(request: NextRequest) {
       { status: 200 }
     );
   } catch (error: any) {
-    console.error('Webhook Error:', error);
+    // Also log any errors that occur
+    console.error('=== WEBHOOK ERROR ===', error);
     return NextResponse.json(
       { success: false, error: error.message },
       { status: 500 }
