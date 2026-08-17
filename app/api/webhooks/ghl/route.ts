@@ -13,7 +13,6 @@ interface GHLPayload {
   "What are the tasks and responsibilities"?: string;
   "Target / Goals / KPI’s"?: string;
   Expectation?: string;
-  "What is your preferred CRM and dialer"?: string;
   "Will you provide the leads, call script"?: string;
   "How many callers do you need?"?: string;
   "Do you happen to have a website for your business by any chance?"?: string;
@@ -40,7 +39,6 @@ export async function POST(request: NextRequest) {
     const tasks = data['What are the tasks and responsibilities'] || 'N/A';
     const goals = data['Target / Goals / KPI’s'] || 'N/A';
     const expectation = data.Expectation || 'N/A';
-    const crm = data['What is your preferred CRM and dialer'] || 'N/A';
     const leadsProvided = data['Will you provide the leads, call script'] || 'N/A';
     const callersNeeded = data['How many callers do you need?'] || 'N/A';
     const website = data['Do you happen to have a website for your business by any chance?'] || 'N/A';
@@ -66,7 +64,6 @@ export async function POST(request: NextRequest) {
         `• *Tasks:* ${tasks}\n` +
         `• *Goals/KPIs:* ${goals}\n` +
         `• *Expectations:* ${expectation}\n` +
-        `• *CRM/Dialer:* ${crm}\n` +
         `• *Leads/Script Provided:* ${leadsProvided}`
     };
 
